@@ -9,7 +9,7 @@ blueprint:
       description: "Select the pico remote to configure:"
       selector:
         device:
-#           integration: lutron_caseta
+          #integration: lutron_caseta
           model: PJ2-2B-GXX-X01 (Pico2Button)
     auto_mode:
       name: Automation Mode
@@ -33,27 +33,27 @@ blueprint:
     top_on:
       name: Top (On) Button Pressed
       description: "Execute when TOP button is PRESSED"
-      default: []
+      default: [ ]
       selector:
-        action: {}
+        action: { }
     top_on_release:
       name: Top (On) Button Released
       description: "Execute when TOP button is RELEASED"
-      default: []
+      default: [ ]
       selector:
-        action: {}
+        action: { }
     bottom_off:
       name: Bottom (Off) Button Pressed
       description: "Execute when BOTTOM button is PRESSED"
-      default: []
+      default: [ ]
       selector:
-        action: {}
+        action: { }
     bottom_off_release:
       name: Bottom (Off) Button Released
       description: "Execute when BOTTOM button is RELEASED"
-      default: []
+      default: [ ]
       selector:
-        action: {}
+        action: { }
 trigger:
   - platform: device
     device_id: !input pico_remote
@@ -75,23 +75,23 @@ trigger:
     domain: lutron_caseta
     type: release
     subtype: 'off'
-condition: []
+condition: [ ]
 action:
   - choose:
       - conditions: '{{ trigger.event.data.action == "press" }}'
         sequence:
-        - choose:
-          - conditions: '{{ trigger.event.data.button_number == 2 }}'
-            sequence: !input top_on
-          - conditions: '{{ trigger.event.data.button_number == 4 }}'
-            sequence: !input bottom_off
+          - choose:
+              - conditions: '{{ trigger.event.data.button_number == 2 }}'
+                sequence: !input top_on
+              - conditions: '{{ trigger.event.data.button_number == 4 }}'
+                sequence: !input bottom_off
       - conditions: '{{ trigger.event.data.action == "release" }}'
         sequence:
-        - choose:
-          - conditions: '{{ trigger.event.data.button_number == 2 }}'
-            sequence: !input top_on_release
-          - conditions: '{{ trigger.event.data.button_number == 4 }}'
-            sequence: !input bottom_off_release
-    default: []
+          - choose:
+              - conditions: '{{ trigger.event.data.button_number == 2 }}'
+                sequence: !input top_on_release
+              - conditions: '{{ trigger.event.data.button_number == 4 }}'
+                sequence: !input bottom_off_release
+    default: [ ]
 mode: !input auto_mode
 max: !input mode_max
