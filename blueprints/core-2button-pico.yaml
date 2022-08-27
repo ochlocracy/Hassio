@@ -9,7 +9,7 @@ blueprint:
       description: "Select the pico remote to configure:"
       selector:
         device:
-          integration: lutron_caseta
+#           integration: lutron_caseta
           model: PJ2-2B-GXX-X01 (Pico2Button)
     auto_mode:
       name: Automation Mode
